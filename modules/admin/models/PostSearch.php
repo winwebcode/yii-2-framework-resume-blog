@@ -1,15 +1,15 @@
 <?php
 
-namespace app\models;
+namespace app\modules\admin\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Blogging;
+use app\modules\admin\models\Post;
 
 /**
- * BloggingSearch represents the model behind the search form of `app\models\Blogging`.
+ * PostSearch represents the model behind the search form of `app\modules\admin\models\Post`.
  */
-class BloggingSearch extends Blogging
+class PostSearch extends Post
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class BloggingSearch extends Blogging
     public function rules()
     {
         return [
-            [['post_id', 'post_author_id'], 'integer'],
-            [['post_date', 'post_content', 'post_title', 'post_name'], 'safe'],
+            [['id_posts'], 'integer'],
+            [['post_title', 'post_content', 'post_name', 'keywords', 'descriptions', 'created_at'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class BloggingSearch extends Blogging
      */
     public function search($params)
     {
-        $query = Blogging::find();
+        $query = Post::find();
 
         // add conditions that should always apply here
 
@@ -58,14 +58,15 @@ class BloggingSearch extends Blogging
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'post_id' => $this->post_id,
-            'post_author_id' => $this->post_author_id,
-            'post_date' => $this->post_date,
+            'id_posts' => $this->id_posts,
+            'created_at' => $this->created_at,
         ]);
 
-        $query->andFilterWhere(['like', 'post_content', $this->post_content])
-            ->andFilterWhere(['like', 'post_title', $this->post_title])
-            ->andFilterWhere(['like', 'post_name', $this->post_name]);
+        $query->andFilterWhere(['like', 'post_title', $this->post_title])
+            ->andFilterWhere(['like', 'post_content', $this->post_content])
+            ->andFilterWhere(['like', 'post_name', $this->post_name])
+            ->andFilterWhere(['like', 'keywords', $this->keywords])
+            ->andFilterWhere(['like', 'descriptions', $this->descriptions]);
 
         return $dataProvider;
     }

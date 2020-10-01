@@ -43,7 +43,7 @@ AppAsset::register($this);
             ['label' => 'Контакты', 'url' => ['/site/contact']],
             ['label' => 'Google', 'url' => ['https://google.com']],
             Yii::$app->user->isGuest ? (
-            ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')

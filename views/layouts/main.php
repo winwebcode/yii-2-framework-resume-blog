@@ -52,8 +52,8 @@ AppAsset::register($this);
             <li class="nav-item"><?= Html::a('Опыт', '#experience', ['class' =>'nav-link js-scroll-trigger']); ?></li>
             <li class="nav-item"><?= Html::a('Образование', '#education', ['class' =>'nav-link js-scroll-trigger']); ?></li>
             <li class="nav-item"><?= Html::a('Скиллы', '#skills', ['class' =>'nav-link js-scroll-trigger']); ?></li>
-            <li class="nav-item"><a target="_blank" class="nav-link js-scroll-trigger" href="<?= Url::to(['site/contact-admin']);?>">Обратная связь</a></li>
-            <li class="nav-item"><a target="_blank" class="nav-link js-scroll-trigger" href="<?= Url::to(['site/login']);?>">Авторизоваться</a></li>
+            <li class="nav-item"><a target="_blank" class="nav-link js-scroll-trigger" href="<?= Url::to(['/site/contact-admin']);?>">Обратная связь</a></li>
+            <li class="nav-item"><a target="_blank" class="nav-link js-scroll-trigger" href="<?= Url::to(['/site/login']);?>">Авторизоваться</a></li>
             <li class="nav-item"><a target="_blank" class="nav-link js-scroll-trigger" href="<?= Url::to(['blog/posts']);?>">Блог</a></li>
         </ul>
     </div>

@@ -15,6 +15,7 @@ $config = [
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\Module',
+            'defaultRoute' => 'posts/index',
         ],
     ],
     'components' => [
@@ -66,14 +67,15 @@ $config = [
             'rules' => [
                 //'<controller:(post|comment)>/<id:\d+>/<action:(create|update|delete)>' => '<controller>/<action>',
                 //'<action:(site|comment)>' => '<controller>/<action>',
-                '<action>' => 'site/<action>',
+                //'<action>' => 'site/<action>',
+                //'<action:\w+>' => '<controller>/<action>', //universal
             ],
 
                 //'<action:(about|contact|login)>' => 'site/<action>',
 
                 //'<action:(controller)>' => 'action/<controller>', // ? не проверено
                 //'<blogpost:\w+>' => 'site/<blogpost>/:\w+' // для постов
-                //'<action:\w+>' => '<controller>/<action>', //universal
+
         ],
     ],
     'params' => $params,

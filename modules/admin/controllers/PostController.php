@@ -1,18 +1,18 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\admin\controllers;
 
 use Yii;
-use app\models\Blogging;
-use app\models\BloggingSearch;
+use app\modules\admin\models\Post;
+use app\modules\admin\models\PostSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * BloggingController implements the CRUD actions for Blogging model.
+ * PostController implements the CRUD actions for Post model.
  */
-class BloggingController extends Controller
+class PostController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class BloggingController extends Controller
     }
 
     /**
-     * Lists all Blogging models.
+     * Lists all Post models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new BloggingSearch();
+        $searchModel = new PostSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class BloggingController extends Controller
     }
 
     /**
-     * Displays a single Blogging model.
+     * Displays a single Post model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,16 +58,16 @@ class BloggingController extends Controller
     }
 
     /**
-     * Creates a new Blogging model.
+     * Creates a new Post model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Blogging();
+        $model = new Post();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->post_id]);
+            return $this->redirect(['view', 'id' => $model->id_posts]);
         }
 
         return $this->render('create', [
@@ -76,7 +76,7 @@ class BloggingController extends Controller
     }
 
     /**
-     * Updates an existing Blogging model.
+     * Updates an existing Post model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -87,7 +87,7 @@ class BloggingController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->post_id]);
+            return $this->redirect(['view', 'id' => $model->id_posts]);
         }
 
         return $this->render('update', [
@@ -96,7 +96,7 @@ class BloggingController extends Controller
     }
 
     /**
-     * Deletes an existing Blogging model.
+     * Deletes an existing Post model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class BloggingController extends Controller
     }
 
     /**
-     * Finds the Blogging model based on its primary key value.
+     * Finds the Post model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Blogging the loaded model
+     * @return Post the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Blogging::findOne($id)) !== null) {
+        if (($model = Post::findOne($id)) !== null) {
             return $model;
         }
 

@@ -8,7 +8,7 @@ use yii\web\Controller;
 
 class AppController extends Controller
 {
-    //public $layout = 'resume';
+    //public $layouts = 'resume';
     /*function __construct()
     {
         $bundle = $this->getAssetManager()->getBundle('app\modules\user\assets\AppAsset');

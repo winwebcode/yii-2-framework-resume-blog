@@ -10,7 +10,6 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\ContactForm;
 use app\models\EmailForm;
 
 class SiteController extends AppController
@@ -143,7 +142,7 @@ class SiteController extends AppController
 
     public function actionContactAdmin()
     {
-        //$this->layout = 'simple'; //template simple
+        //$this->layouts = 'simple'; //template simple
         $model = new EmailForm();
         if($model->load(Yii::$app->request->post())) {
             if($model->validate()) {
@@ -205,5 +204,16 @@ class SiteController extends AppController
 
 
         return $this->render('simple', compact('posts'));
+    }
+
+    public function validatePassword($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
+
+            if (!$user || !$user->validatePassword($this->password)) {
+                $this->addError($attribute, 'Логин или пароль введены не верно.');
+            }
+        }
     }
 }
