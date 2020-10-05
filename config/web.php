@@ -15,7 +15,7 @@ $config = [
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\Module',
-            'defaultRoute' => 'posts/index',
+            'defaultRoute' => 'post/index',
         ],
     ],
     'components' => [
@@ -69,6 +69,7 @@ $config = [
                 //'<action:(site|comment)>' => '<controller>/<action>',
                 //'<action>' => 'site/<action>',
                 //'<action:\w+>' => '<controller>/<action>', //universal
+                'blog/<postname>' => 'blog/view/',
             ],
 
                 //'<action:(about|contact|login)>' => 'site/<action>',

@@ -44,11 +44,8 @@ AppAsset::register($this)
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
-            <li class="nav-item"><?= Html::a('Главная', '/', ['class' =>'nav-link js-scroll-trigger']); ?></li>
-            <li class="nav-item"><?= Html::a('Об авторе', '#about', ['class' =>'nav-link js-scroll-trigger']); ?></li>
-            <li class="nav-item"><?= Html::a('Опыт', '#experience', ['class' =>'nav-link js-scroll-trigger']); ?></li>
-            <li class="nav-item"><?= Html::a('Образование', '#education', ['class' =>'nav-link js-scroll-trigger']); ?></li>
-            <li class="nav-item"><?= Html::a('Скиллы', '#skills', ['class' =>'nav-link js-scroll-trigger']); ?></li>
+            <li class="nav-item"><a target="_blank" class="nav-link js-scroll-trigger" href="<?= Url::to(['/blog']);?>">Блог</a></li>
+            <li class="nav-item"><?= Html::a('Резюме', '/', ['class' =>'nav-link js-scroll-trigger']); ?></li>
             <li class="nav-item"><a target="_blank" class="nav-link js-scroll-trigger" href="<?= Url::to(['/site/contact-admin']);?>">Обратная связь</a></li>
             <?php if(Yii::$app->user->isGuest):?>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= Url::to(['/site/login']);?>"><i class="fa fa-lock"></i>Авторизоваться</a></li>
@@ -56,7 +53,7 @@ AppAsset::register($this)
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="<?= Url::to(['/site/logout']);?>"><i class="fa fa-user"></i><?= Yii::$app->user->identity['username'] . ' (Выйти)';?></a></li>
             <?php endif;?>
 
-            <li class="nav-item"><a target="_blank" class="nav-link js-scroll-trigger" href="<?= Url::to(['/blog']);?>">Блог</a></li>
+
         </ul>
     </div>
 </nav>

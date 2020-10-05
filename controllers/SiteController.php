@@ -135,14 +135,8 @@ class SiteController extends AppController
         return $this->render('say', ['message' => $message]);
     }
 
-    public function actionSay2()
-    {
-        return $this->render('say');
-    }
-
     public function actionContactAdmin()
     {
-        //$this->layouts = 'simple'; //template simple
         $model = new EmailForm();
         if($model->load(Yii::$app->request->post())) {
             if($model->validate()) {
