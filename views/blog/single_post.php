@@ -2,12 +2,6 @@
 use yii\helpers\Url;
 /* @var $this yii\web\View */
 ?>
-<h1>blog/index</h1>
-
-
-<?=$post_content->post_content;?>
-
-
 <!-- Page Content -->
 <div class="container">
 
@@ -17,18 +11,18 @@ use yii\helpers\Url;
         <div class="col-lg-8">
 
             <!-- Title -->
-            <h1 class="mt-4"><?=$posts->post_name;?></h1>
+            <h1 class="mt-4"><?= $post_content->post_name;?></h1>
 
             <!-- Author -->
             <p class="lead">
                 by
-                <a href="#">Author</a>
+                <a href="#">Administrator</a>
             </p>
 
             <hr>
 
             <!-- Date/Time -->
-            <p>Posted on January 1, 2019 at 12:00 PM</p>
+            <p><?= $post_content->created_at;?></p>
 
             <hr>
 
@@ -38,13 +32,16 @@ use yii\helpers\Url;
             <hr>
 
             <!-- Post Content -->
-            <?=$post_content->post_content;?>
-
+            <div class="w-auto p-3">
+            <?= $post_content->post_content;?>
+            </div>
             <hr>
-
+            <?php if(Yii::$app->user->isGuest):?>
+                <h4 class="alert alert-warning" role="alert">Чтобы оставить комментарий необходимо <a href="<?= Url::to(['/site/login']);?>">авторизоваться</a></h4>
+            <?php else:?>
             <!-- Comments Form -->
             <div class="card my-4">
-                <h5 class="card-header">Leave a Comment:</h5>
+                <h5 class="card-header">Оставить комментарий от <?= Yii::$app->user->identity['username'];?></h5>
                 <div class="card-body">
                     <form>
                         <div class="form-group">
@@ -54,7 +51,7 @@ use yii\helpers\Url;
                     </form>
                 </div>
             </div>
-
+            <?php endif;?>
             <!-- Single Comment -->
             <div class="media mb-4">
                 <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">

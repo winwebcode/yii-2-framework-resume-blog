@@ -30,7 +30,7 @@ use yii\helpers\Html;
                 </div>
                 <div class="card-footer text-muted">
                     <?= $posts->created_at;?>
-                    <a href="#">Author</a>
+                    <!--<a href="#">Author</a>-->
                 </div>
             </div>
             <?php endforeach;?>
