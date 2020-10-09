@@ -2,6 +2,8 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\Blog;
+use app\modules\admin\models\Category;
 use Yii;
 use app\modules\admin\models\Post;
 use app\modules\admin\models\PostSearch;
@@ -85,14 +87,18 @@ class PostController extends Controller
      */
     public function actionUpdate($id)
     {
+        $query = "SELECT category_name FROM category";
+        $getCategory = Category::findBySql($query)->all();
+
+        //$getCategory = Category::find()->all();
+        //$getCategory = Category::find()->asArray()->all();
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_posts]);
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        return $this->render('update', compact ('model', 'getCategory'));
+
     }
 
     /**

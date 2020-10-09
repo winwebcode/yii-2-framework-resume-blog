@@ -6,8 +6,6 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
-use yii\helpers\StringHelper;
-use yii\behaviors\AttributeBehavior;
 use yii\behaviors\SluggableBehavior;
 
 /**
@@ -20,6 +18,7 @@ use yii\behaviors\SluggableBehavior;
  * @property string|null $keywords
  * @property string|null $descriptions
  * @property string $created_at
+ * @property int $category_id
  */
 class Post extends \yii\db\ActiveRecord
 {
@@ -52,13 +51,14 @@ class Post extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_posts' => 'Id Posts',
-            'post_title' => 'Post Title',
-            'post_content' => 'Post Content',
-            'post_name' => 'Post Name',
+            'id_posts' => 'ID записи',
+            'post_title' => 'Заголовок',
+            'post_content' => 'Текст записи',
+            'post_name' => 'URL',
             'keywords' => 'Keywords',
             'descriptions' => 'Descriptions',
-            'created_at' => 'Created At',
+            'created_at' => 'Дата создания',
+            'category_id' => 'ID категории',
         ];
     }
 
