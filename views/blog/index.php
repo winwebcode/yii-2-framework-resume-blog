@@ -1,4 +1,6 @@
 <?php
+
+use yii\helpers\StringHelper;
 use yii\helpers\Url;
 use yii\bootstrap\NavBar;
 use yii\bootstrap\Nav;
@@ -25,7 +27,7 @@ use yii\helpers\Html;
                 <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
                 <div class="card-body">
                     <h2 class="card-title"><?= $posts->post_name;?></h2>
-                    <p class="card-text"><?= $posts->post_content; ?></p>
+                    <p class="card-text"><?= StringHelper::truncateWords("$posts->post_content", 50); ?></p>
                     <a class="btn btn-primary" href="<?= Url::to(['blog/view', 'postname' => $posts->post_name]); ?>">Читать далее</a>
                 </div>
                 <div class="card-footer text-muted">

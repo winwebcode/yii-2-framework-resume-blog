@@ -2,9 +2,9 @@
 use yii\helpers\Url;
 /* @var $this yii\web\View */
 ?>
+<?php debuger($postnamer);?>
 <!-- Page Content -->
 <div class="container">
-
     <div class="row">
 
         <!-- Post Content Column -->

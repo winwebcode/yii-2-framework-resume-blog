@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Post', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить запись', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'post_content:ntext',
             'post_name',
             'keywords:ntext',
-            //'descriptions:ntext',
+            'descriptions:ntext',
             //'created_at',
 
             ['class' => 'yii\grid\ActionColumn'],

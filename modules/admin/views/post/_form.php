@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\base\Widget;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\admin\models\Post */
@@ -22,7 +23,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'descriptions')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
+    <?/*= $form->field($model, 'created_at')->textInput(['value' => Yii::$app->formatter->asDatetime($model->created_at, 'php:y-m-d H:i:s')]) */?>
+    <?/*= $form->field($model, 'created_at')->widget(\yii\jui\DatePicker::classname(), [
+        'dateFormat' => 'php:y-m-d H:i:s',
+    ]) */?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
