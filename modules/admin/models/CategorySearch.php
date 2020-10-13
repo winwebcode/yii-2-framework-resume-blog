@@ -4,12 +4,12 @@ namespace app\modules\admin\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\admin\models\Post;
+use app\modules\admin\models\Category;
 
 /**
- * PostSearch represents the model behind the search form of `app\modules\admin\models\Post`.
+ * CategorySearch represents the model behind the search form of `app\modules\admin\models\Category`.
  */
-class PostSearch extends Post
+class CategorySearch extends Category
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class PostSearch extends Post
     public function rules()
     {
         return [
-            [['id_posts'], 'integer'],
-            [['post_title', 'post_content', 'post_name', 'keywords', 'descriptions', 'created_at'], 'safe'],
+            [['category_id', 'parent_category_id'], 'integer'],
+            [['category_name', 'description'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class PostSearch extends Post
      */
     public function search($params)
     {
-        $query = Post::find()->with('categoryInfo');
+        $query = Category::find();
 
         // add conditions that should always apply here
 
@@ -58,15 +58,12 @@ class PostSearch extends Post
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_posts' => $this->id_posts,
-            'created_at' => $this->created_at,
+            'category_id' => $this->category_id,
+            'parent_category_id' => $this->parent_category_id,
         ]);
 
-        $query->andFilterWhere(['like', 'post_title', $this->post_title])
-            ->andFilterWhere(['like', 'post_content', $this->post_content])
-            ->andFilterWhere(['like', 'post_name', $this->post_name])
-            ->andFilterWhere(['like', 'keywords', $this->keywords])
-            ->andFilterWhere(['like', 'descriptions', $this->descriptions]);
+        $query->andFilterWhere(['like', 'category_name', $this->category_name])
+            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

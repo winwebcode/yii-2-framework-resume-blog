@@ -3,8 +3,9 @@
 namespace app\controllers;
 
 use app\models\Blog;
+use app\modules\admin\models\Category;
+use app\modules\admin\models\Post;
 use Yii;
-use yii\helpers\StringHelper;
 
 class BlogController extends AppController
 {

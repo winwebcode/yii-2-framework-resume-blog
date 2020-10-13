@@ -33,6 +33,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'keywords:ntext',
             'descriptions:ntext',
             //'created_at',
+            //'parent_category',
+            [
+                'attribute' => 'parent_category',
+                'value' => function($dataProvider) {
+
+                    if (!empty($dataProvider->categoryInfo->category_name)) {
+                        return $dataProvider->categoryInfo->category_name;
+                    } else {
+                        return 'Неизвестная категория';
+                    }
+                },
+                //'format' => 'html', //enable html
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

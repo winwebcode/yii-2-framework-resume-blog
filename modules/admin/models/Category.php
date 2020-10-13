@@ -22,6 +22,11 @@ class Category extends \yii\db\ActiveRecord
         return 'category';
     }
 
+    public function getPost()
+    {
+        return $this->hasMany(Post::className(), ['parent_category' => 'category_id']);
+    }
+
     /**
      * {@inheritdoc}
      */

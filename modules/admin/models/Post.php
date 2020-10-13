@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\models;
 
+use app\modules\admin\models\Category;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -18,7 +19,7 @@ use yii\behaviors\SluggableBehavior;
  * @property string|null $keywords
  * @property string|null $descriptions
  * @property string $created_at
- * @property int $category_id
+ * @property int $parent_category
  */
 class Post extends \yii\db\ActiveRecord
 {
@@ -30,13 +31,18 @@ class Post extends \yii\db\ActiveRecord
         return 'posts';
     }
 
+    public function getCategoryInfo()
+    {
+        return $this->hasOne(Category::className(), ['category_id' => 'parent_category']);
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['post_title', 'post_content'], 'required'],
+            [['post_title', 'post_content', 'parent_category'], 'required'],
             [['post_content', 'keywords', 'descriptions'], 'string'],
             [['created_at'], 'safe'],
             [['post_title'], 'string', 'max' => 200],
@@ -58,7 +64,7 @@ class Post extends \yii\db\ActiveRecord
             'keywords' => 'Keywords',
             'descriptions' => 'Descriptions',
             'created_at' => 'Дата создания',
-            'category_id' => 'ID категории',
+            'parent_category' => 'ID категории поста',
         ];
     }
 

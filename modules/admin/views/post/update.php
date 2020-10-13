@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use app\modules\admin\models\Category;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\admin\models\Post */
@@ -18,7 +17,7 @@ $this->params['breadcrumbs'][] = 'Update';
     <?= /*$this->render('_form', [
         'model' => $model,
     ]) */
-    $this->render('_form', compact('model', 'getCategory'));
+    $this->render('_form', compact('model', 'show_category'));
     ?>
 
 </div>

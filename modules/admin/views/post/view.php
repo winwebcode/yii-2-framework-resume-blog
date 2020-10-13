@@ -36,7 +36,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'keywords:ntext',
             'descriptions:ntext',
             'created_at',
-            'category_id',
+            'categoryInfo.category_name', //categoryInfo - название связи в модели.поле имя категории
+
+            /*
+             * works* option 2
+            /*[
+                'attribute' => 'parent_category',
+                'value' => function($model) {
+                    return $model->categoryInfo->category_name; //categoryInfo - название связи в модели
+
+                },
+                //'format' => 'html', //enable html
+            ],*/
         ],
     ]) ?>
 

@@ -8,5 +8,6 @@ use yii\web\Controller;
 
 class AppAdminController extends Controller
 {
+    public $layout = 'administrator';
 
 }

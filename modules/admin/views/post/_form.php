@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\admin\models\Post */
@@ -11,13 +11,7 @@ use yii\widgets\ActiveForm;
 
 <div class="post-form container">
 
-    <?php $form = ActiveForm::begin();
-debuger($getCategory);
-   foreach ($getCategory as $category) {
-        //$items = [$category->category_id => $category->category_name];
-$items[] = $category->category_name;
-    }
-    ?>
+    <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'post_title')->textInput(['maxlength' => true]) ?>
 
@@ -29,8 +23,7 @@ $items[] = $category->category_name;
 
     <?= $form->field($model, 'descriptions')->textarea(['rows' => 6]) ?>
 
-    <?//= $form->field($model, 'category_id')->dropDownList([$getCategory->category_name]); ?>
-    <?= $form->field($model, 'category_id')->dropDownList([$items]); ?>
+    <?= $form->field($model, 'parent_category')->dropDownList(ArrayHelper::map($show_category,'category_id','category_name')); ?>
 
     <?/*= $form->field($model, 'created_at')->widget(\yii\jui\DatePicker::classname(), [
         'dateFormat' => 'php:y-m-d H:i:s',
