@@ -234,10 +234,10 @@ class SiteController extends AppController
                 $getAvatar->save();
 
                 if ($getAvatar->save(Yii::$app->request->post())) {
-                    \Yii::$app->session->setFlash('success', 'Аватар сохранён!');
+                    Yii::$app->session->setFlash('success', 'Аватар сохранён!');
                     $this->redirect("/admin/");
                 } else {
-                    \Yii::$app->session->setFlash('error', 'Вы пытались, но произошла ошибка.');
+                    Yii::$app->session->setFlash('error', 'Вы пытались, но произошла ошибка.');
                 }
 
             }
