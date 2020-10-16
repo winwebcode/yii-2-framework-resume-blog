@@ -9,6 +9,8 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use yii\helpers\Url;
+use yii\web\UploadedFile;
+use app\components\AvatarWidget;
 
 AppAsset::register($this)
 ?>
@@ -54,11 +56,26 @@ AppAsset::register($this)
                     <a class="dropdown-item h4" href="<?= Url::to(['/admin/post/create']);?>">Создать запись</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item h4" href="<?= Url::to(['/admin/category/']);?>">Управление категориями</a>
+                    <a class="dropdown-item h4" href="<?= Url::to(['/admin/category/create']);?>">Добавить категорию</a>
                 </div>
             </li>
 
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Пользователи
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item h4" href="<?= Url::to(['#']);?>">Все пользователи</a>
+                    <a class="dropdown-item h4" href="<?= Url::to(['#']);?>">Ваш профиль</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item h4" href="<?= Url::to(['/site/upload']);?>">Смена аватара</a>
+                </div>
+            </li>
+
+
+
             <li class="nav-item active">
-                <a class="nav-link" href="#">123 <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#">Test <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Link</a>
@@ -80,6 +97,7 @@ AppAsset::register($this)
                 <a class="nav-link disabled" href="#">Disabled</a>
             </li>
         </ul>
+        <?= AvatarWidget::widget()?>
         <!--<form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -125,5 +143,3 @@ AppAsset::register($this)
     </body>
 </html>
 <?php $this->endPage() ?>
-
-

@@ -27,17 +27,21 @@ class Category extends \yii\db\ActiveRecord
         return $this->hasMany(Post::className(), ['parent_category' => 'category_id']);
     }
 
+  /*  public function getCategory()
+    {
+        return $this->hasOne(Category::className(), ['parent_category_id' => 'category_name']);
+    }*/
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['category_id', 'category_name'], 'required'],
-            [['category_id', 'parent_category_id'], 'integer'],
-            [['name'], 'string', 'max' => 70],
+            [['category_name'], 'required'],
+            [['parent_category_id'], 'integer'],
             [['description'], 'string', 'max' => 3000],
-            [['category_id'], 'unique'],
+
         ];
     }
 
@@ -47,10 +51,10 @@ class Category extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'category_id' => 'Category ID',
-            'parent_category_id' => 'Parent Category ID',
-            'category_name' => 'Category Name',
-            'description' => 'Description',
+            'category_id' => 'ID категории',
+            'parent_category_id' => 'ID род. категория',
+            'category_name' => 'Имя категории',
+            'description' => 'Описание',
         ];
     }
 }

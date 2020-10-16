@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Blog;
+use app\models\TicketForm;
 use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
@@ -11,6 +12,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\EmailForm;
+use app\models\UploadForm;
+use yii\web\UploadedFile;
 
 class SiteController extends AppController
 {
@@ -138,8 +141,8 @@ class SiteController extends AppController
     public function actionContactAdmin()
     {
         $model = new EmailForm();
-        if($model->load(Yii::$app->request->post())) {
-            if($model->validate()) {
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
                 $model->sendEmail(Yii::$app->params['adminEmail']); // send email
                 Yii::$app->session->setFlash('success', 'Сообщение отправлено');
             } else {
@@ -150,12 +153,13 @@ class SiteController extends AppController
         $this->setMeta('Связаться с Администратором');
         return $this->render('feedback', compact('model'));
     }
+
     public function actionBloger()
     {
         $this->layout = simple;
         $this->view->title = 'Записи блога';
-        $this->view->registerMetaTag(['name'=>'keywords', 'content' => 'keys1, 2, 3']);
-        $this->view->registerMetaTag(['name'=>'description', 'content' => 'descr...']);
+        $this->view->registerMetaTag(['name' => 'keywords', 'content' => 'keys1, 2, 3']);
+        $this->view->registerMetaTag(['name' => 'description', 'content' => 'descr...']);
 
         //$posts = Blog::find()->all() ;
         //$posts = Blog::find()->orderBy(['post_id'=> SORT_DESC])->all(); //с обратной сортировкой
@@ -163,11 +167,11 @@ class SiteController extends AppController
         //$posts = Blog::find()->asArray()->where('post_id = 1')->all(); //where
         //$posts = Blog::find()->asArray()->where(['post_id' => 1])->all(); //where (оператор, поле, значение)
         //$posts = Blog::find()->asArray()->where(['like', 'post_title', 'п'])->all(); //where %% в like писать не надо
-       // $posts = Blog::find()->asArray()->where(['<=', 'post_id', 2])->all(); //where (оператор, поле, значение)
+        // $posts = Blog::find()->asArray()->where(['<=', 'post_id', 2])->all(); //where (оператор, поле, значение)
 
         //$posts = Blog::find()->asArray()->where(['<=', 'post_id', '2'])->limit(1)->all(); //where
-       //$posts = Blog::find()->asArray()->where('post_id' <= '2')->limit(1)->all(); //where
-      //$posts = Blog::find()->asArray()->where(['<=', 'post_id', '2'])->count(); //количество записей
+        //$posts = Blog::find()->asArray()->where('post_id' <= '2')->limit(1)->all(); //where
+        //$posts = Blog::find()->asArray()->where(['<=', 'post_id', '2'])->count(); //количество записей
 
 
         //$posts = Blog::find()->orderBy(['post_id'=> SORT_DESC])->one(); // ?!!?  с one не работает ?!!?
@@ -175,11 +179,11 @@ class SiteController extends AppController
         //$posts = Blog::findOne(['post_id' <= 1]); //
         //$posts = Blog::findAll(['post_id' => '1']); //
 
-            //не параметризированный
+        //не параметризированный
         //$query = "SELECT * FROM blog WHERE (post_title LIKE  '%та%')";
         //$posts = Blog::findBySql($query)->all();
 
-            //параметризированный
+        //параметризированный
         $query = "SELECT * FROM blog WHERE (post_title LIKE :search)";
         $posts = Blog::findBySql($query, [':search' => '%та%'])->all();
         return $this->render('simple', compact('posts'));
@@ -189,13 +193,11 @@ class SiteController extends AppController
     {
         /*ленивая и жадная загрузка данных*/
         $this->layout = simple;
-       // $posts = Blog::findOne(1); // ленивая или отложенная загрузка
-       // $posts = Blog::find()->all(); // ленивая или отложенная загрузка
+        // $posts = Blog::findOne(1); // ленивая или отложенная загрузка
+        // $posts = Blog::find()->all(); // ленивая или отложенная загрузка
 
         //жадная загрузка
         $posts = Blog::find()->with('postAuthorID')->where('post_author_id = 1')->all(); // жадная загрузка, используется with('метод связывания таблиц')
-
-
 
         return $this->render('simple', compact('posts'));
     }
@@ -209,5 +211,38 @@ class SiteController extends AppController
                 $this->addError($attribute, 'Логин или пароль введены не верно.');
             }
         }
+    }
+
+    /*Upload avatar*/
+    public function actionUpload()
+    {
+        if (Yii::$app->user->isGuest) {
+            $this->redirect("/site/login");
+        } else {
+            $username = Yii::$app->user->identity['username'];
+        }
+
+        $model = new UploadForm();
+        if (Yii::$app->request->isPost) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if ($model->upload()) {
+                // file is uploaded successfully
+                $pathAvatar = $model->pathAvatar;
+
+                $getAvatar = User::findOne(['username' => $username]);
+                $getAvatar->avatar = $pathAvatar;
+                $getAvatar->save();
+
+                if ($getAvatar->save(Yii::$app->request->post())) {
+                    \Yii::$app->session->setFlash('success', 'Аватар сохранён!');
+                    $this->redirect("/admin/");
+                } else {
+                    \Yii::$app->session->setFlash('error', 'Вы пытались, но произошла ошибка.');
+                }
+
+            }
+        }
+
+        return $this->render('upload', compact('model', 'getAvatar'));
     }
 }

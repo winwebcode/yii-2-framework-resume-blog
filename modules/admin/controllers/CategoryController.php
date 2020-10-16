@@ -52,8 +52,11 @@ class CategoryController extends AppAdminController
      */
     public function actionView($id)
     {
+        $cat_name = Category::find()->all();
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'cat_name' => $cat_name,
         ]);
     }
 
@@ -65,6 +68,7 @@ class CategoryController extends AppAdminController
     public function actionCreate()
     {
         $model = new Category();
+        $show_category = Category::find()->asArray()->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->category_id]);
@@ -72,6 +76,7 @@ class CategoryController extends AppAdminController
 
         return $this->render('create', [
             'model' => $model,
+            'show_category' => $show_category,
         ]);
     }
 
@@ -85,13 +90,14 @@ class CategoryController extends AppAdminController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $show_category = Category::find()->asArray()->all();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->category_id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'show_category' => $show_category,
         ]);
     }
 
