@@ -17,4 +17,22 @@ class TestController extends AppController
         //return '3 2 1';
     }
 
+    public function actionBubble()
+    {
+
+        $num = ['1','9','6', '8', '4'];
+        do {
+            $swaped = false;
+
+            for ($i = 1; $i < count($num); $i++) {
+                if ($num[$i - 1] > $num[$i]) {
+                    $a = $num[$i - 1];
+                    $num[$i - 1] = $num[$i];
+                    $num[$i] = $a;
+                    $swaped = true;
+                }
+            }
+        } while ($swaped != false) ;
+        return $this->render('inform', compact('swaped', 'num'));
+    }
 }
